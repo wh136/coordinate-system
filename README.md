@@ -65,5 +65,9 @@ https://blog.csdn.net/qq_39615545/article/details/90172038
 
 ### 由实体类映射到数据库
 
+### user role
+https://blog.csdn.net/Xincainy/article/details/83789682
+
+
 
 

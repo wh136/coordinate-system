@@ -1,6 +1,7 @@
 package com.wh136.xyz.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="t_user")
@@ -34,5 +35,15 @@ public class User {
     private Integer id;
     private String userName;
     private String password;
+
+    @Column(nullable = false,unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private Long createTime;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
 }
