@@ -1,5 +1,6 @@
 package com.wh136.xyz.controller;
 
+import com.wh136.xyz.common.model.AmapDTO;
 import com.wh136.xyz.domain.User;
 import com.wh136.xyz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class UserController {
 
     @RequestMapping("/getUser/{id}")
     public User getUser(@PathVariable("id") Integer id) {
-        return userService.getUser(id);
+        AmapDTO amapDTO = userService.getUser(id);
+        return new AmapDTO<>(amapDTO);
     }
 }
