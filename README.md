@@ -72,4 +72,9 @@ https://blog.csdn.net/Xincainy/article/details/83789682
 https://blog.csdn.net/flowingflying/article/details/81327886
 
 
+### Spring boot Jpa 插入数据
+https://blog.csdn.net/CREATE_17/article/details/89076131
+
+
+
 

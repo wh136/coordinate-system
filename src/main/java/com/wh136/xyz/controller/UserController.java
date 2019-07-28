@@ -15,7 +15,7 @@ public class UserController {
 
     @RequestMapping("/getUser/{id}")
     public User getUser(@PathVariable("id") Integer id) {
-        AmapDTO amapDTO = userService.getUser(id);
-        return new AmapDTO<>(amapDTO);
+        AmapDTO amapDTO = new AmapDTO();
+        return amapDTO.setGeocodes(userService.getUser(id));
     }
 }
