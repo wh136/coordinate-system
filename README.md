@@ -68,6 +68,13 @@ https://blog.csdn.net/qq_39615545/article/details/90172038
 ### user role
 https://blog.csdn.net/Xincainy/article/details/83789682
 
+### Many to Many 注解
+https://blog.csdn.net/flowingflying/article/details/81327886
+
+
+### Spring boot Jpa 插入数据
+https://blog.csdn.net/CREATE_17/article/details/89076131
+
 
 
 
