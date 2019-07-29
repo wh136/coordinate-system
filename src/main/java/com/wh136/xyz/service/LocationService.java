@@ -1,6 +1,8 @@
 package com.wh136.xyz.service;
 
+import com.wh136.xyz.domain.Location;
+
 public interface LocationService {
-    public String getLongitudeLatitude(String address);
-    public String setLongitudeLatitude(String address, String logitude, String latitude);
+    Location getLongitudeLatitude(String address);
+    void setLongitudeLatitude(String address, String longitude, String latitude);
 }

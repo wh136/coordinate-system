@@ -8,9 +8,9 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    private String address;
     private String longitude; // 经度
     private String latitude;  //纬度
-    private String address;
 
     public String getAddress() {
         return address;

@@ -1,6 +1,7 @@
 package com.wh136.xyz.serviceImpl;
 
 import com.wh136.xyz.dao.LocationRepository;
+import com.wh136.xyz.domain.Location;
 import com.wh136.xyz.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,16 @@ public class LocationServiceImpl implements LocationService {
     LocationRepository locationRepository;
 
     @Override
-    public String getLongitudeLatitude(String address) {
+    public Location getLongitudeLatitude(String address) {
          return  locationRepository.getLongitudeLatitude(address);
     }
 
     @Override
-    public String setLongitudeLatitude(String address, String logitude, String latitude) {
-
-        locationRepository
+    public void setLongitudeLatitude(String address, String longitude, String latitude) {
+//        Location location = new Location();
+//        location.setAddress(address);
+//        location.setLongitude(logitude);
+//        location.setLatitude(latitude);
+        locationRepository.setLongitudeLatitude(address, longitude, latitude);
     }
 }
