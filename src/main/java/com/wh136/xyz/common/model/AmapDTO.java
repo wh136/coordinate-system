@@ -13,6 +13,9 @@ public class AmapDTO<T> {
 //    }
 
     public AmapDTO() {
+        this.status = "1";
+        this.info = "OK";
+        this.infocode = "10000";
     }
 
     public AmapDTO(T geocodes) {
@@ -21,6 +24,8 @@ public class AmapDTO<T> {
         this.infocode = "10000";
         if (geocodes == null) {
             this.count = "0";
+        } else  {
+            this.count = "1";
         }
     }
 

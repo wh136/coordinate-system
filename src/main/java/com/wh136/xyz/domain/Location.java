@@ -36,6 +36,9 @@ public class Location {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
-
+    //   兰州:东经103°49′,北纬36°03   经度范围 -180° ~ 180度  纬度 -90° ~90°
+    public String getLocation() {
+        return this.longitude+","+this.latitude;
+    }
 
 }
