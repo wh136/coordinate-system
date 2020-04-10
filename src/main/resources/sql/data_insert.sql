@@ -1,2 +1,4 @@
 use dc;
-INSERT
+INSERT INTO book
+VALUE (0,
+       'Stone History');
