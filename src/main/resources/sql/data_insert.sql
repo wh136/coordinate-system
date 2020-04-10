@@ -1,4 +1,2 @@
 use dc;
-INSERT INTO book
-VALUE (0,
-       'Stone History');
+INSERT INTO book(book_id, book_name) VALUES (0,'Stone History');
