@@ -1,14 +1,17 @@
 package com.wh136.xyz.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wh136.xyz.common.model.AmapDTO;
 import com.wh136.xyz.domain.User;
 import com.wh136.xyz.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Slf4j
 public class UserController {
     @Autowired
     UserService userService;
@@ -18,5 +21,13 @@ public class UserController {
         AmapDTO amapDTO = new AmapDTO();
         amapDTO.setGeocodes(userService.getUser(id));
         return amapDTO;
+    }
+
+    @RequestMapping("/quartz")
+    public JSONObject getQuartz() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("key1", "value");
+        log.info("get info");
+        return jsonObject;
     }
 }
