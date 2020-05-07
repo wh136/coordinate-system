@@ -7,6 +7,8 @@ import org.quartz.SchedulerFactory;
 import org.quartz.*;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -26,6 +28,9 @@ import static org.quartz.TriggerBuilder.newTrigger;
 @Slf4j
 @Service
 public class QuartzDemo1 {
+
+
+
     public void startDemo1 () {
         try {
             SchedulerFactory stdSchedulerFactory = new org.quartz.impl.StdSchedulerFactory();
@@ -46,7 +51,7 @@ public class QuartzDemo1 {
                     .withIdentity("myTrigger", "group1")
                     .startNow()
                     .withSchedule(simpleSchedule()
-                            .withIntervalInSeconds(40)
+                            .withIntervalInSeconds(3)
                             .repeatForever())
                     .build();
 
