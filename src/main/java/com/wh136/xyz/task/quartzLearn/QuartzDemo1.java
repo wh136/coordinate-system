@@ -70,7 +70,7 @@ public class QuartzDemo1 implements ApplicationRunner {
     }
 
     public void startCronJob() {
-        String executeTime = "30 57 12 * * ?";
+        String executeTime = "30 57 12 * * ?"; // 12:57:30 开始出发
         try {
             SchedulerFactory stdSchedulerFactory = new org.quartz.impl.StdSchedulerFactory();
             Scheduler scheduler = stdSchedulerFactory.getScheduler();
