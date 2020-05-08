@@ -15,14 +15,17 @@ public class QuartzDemo1Job implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info("Job executing...");
         Trigger trigger = jobExecutionContext.getTrigger();
         Scheduler scheduler = jobExecutionContext.getScheduler();
         try {
             JobDetail jobDetail = scheduler.getJobDetail(JobKey.jobKey("myjob", "group1"));
-            log.info("trigger status: {}", scheduler.getTriggerState(trigger.getKey()));
+            Trigger.TriggerState state = scheduler.getTriggerState(TriggerKey.triggerKey("myCronTrigger", "group1"));
+
+            log.info("Listening... || cron job exist:{} || cron trigger status:{}",
+                    scheduler.checkExists(JobKey.jobKey("myCronJob", "group1")),
+                    state.toString());
         } catch (Exception e) {
-            log.info("get trgger err ", e);
+            log.info("get trigger err ", e);
         }
         /* job状态
         * WAITING:等待

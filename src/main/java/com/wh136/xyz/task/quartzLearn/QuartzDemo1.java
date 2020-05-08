@@ -1,10 +1,14 @@
 package com.wh136.xyz.task.quartzLearn;
 
+import com.wh136.xyz.task.quartzLearn.JobDemo.CronJob;
 import com.wh136.xyz.task.quartzLearn.JobDemo.QuartzDemo1Job;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,9 +31,11 @@ import static org.quartz.TriggerBuilder.newTrigger;
 * */
 @Slf4j
 @Service
-public class QuartzDemo1 {
+public class QuartzDemo1 implements ApplicationRunner {
+    private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 
-
+    @Resource
+    CronJob cronJob;
 
     public void startDemo1 () {
         try {
@@ -61,5 +67,61 @@ public class QuartzDemo1 {
             log.warn("executing job error ", e);
         }
 
+    }
+
+    public void startCronJob() {
+        String executeTime = "30 57 12 * * ?";
+        try {
+            SchedulerFactory stdSchedulerFactory = new org.quartz.impl.StdSchedulerFactory();
+            Scheduler scheduler = stdSchedulerFactory.getScheduler();
+            scheduler.start();
+
+            JobDetail jobDetail = newJob(CronJob.class)
+                    .withIdentity("myCronJob", "group1")
+                    .build();
+
+            // Trigger the job to run now, and then every 40 seconds
+            Trigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity("myCronTrigger", "group1")
+                    .forJob("myCronJob", "group1")
+                    .withSchedule(CronScheduleBuilder.cronSchedule(executeTime))
+                    .build();
+            // Tell quartz to schedule the job using our trigger
+            scheduler.scheduleJob(jobDetail,trigger);
+        } catch (Exception e) {
+            log.info("error", e);
+        }
+    }
+    public void editTrigger(String cronTime) {
+        try {
+            Scheduler scheduler = schedulerFactory.getScheduler();
+            scheduler.start();
+            Trigger.TriggerState state = scheduler.getTriggerState(TriggerKey.triggerKey("myCronTrigger", "group1"));
+            scheduler.pauseTrigger(TriggerKey.triggerKey("myCronTrigger", "group1"));
+//            scheduler.unscheduleJob(TriggerKey.triggerKey("myCronTrigger", "group1"));  // 这一行使Job和Trigger都没了
+            log.info("trigger state: {} || job exists: {}", state.toString(),
+                        scheduler.checkExists(JobKey.jobKey("myCronJob", "group1")));
+            Trigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity("myCronTrigger", "group1")
+                    .forJob("myCronJob", "group1")
+                    .withSchedule(CronScheduleBuilder.cronSchedule(cronTime))
+                    .build();
+            scheduler.rescheduleJob(TriggerKey.triggerKey("myCronTrigger", "group1"), trigger);
+        } catch (Exception e) {
+            log.info("edit ", e);
+        }
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        log.info("app run begin");
+        startCronJob();
+
+        SchedulerFactory stdSchedulerFactory = new org.quartz.impl.StdSchedulerFactory();
+        Scheduler scheduler = stdSchedulerFactory.getScheduler();
+        Trigger.TriggerState state = scheduler.getTriggerState(TriggerKey.triggerKey("myCronTrigger", "group1"));
+
+        log.info("cron job exist:{}", scheduler.checkExists(JobKey.jobKey("myCronJob", "group1")));
+        log.info("cron trigger status:{}", state.toString());
     }
 }
