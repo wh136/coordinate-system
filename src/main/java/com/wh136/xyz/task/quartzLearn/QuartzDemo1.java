@@ -95,7 +95,7 @@ public class QuartzDemo1 implements ApplicationRunner {
     public void editTrigger(String cronTime) {
         try {
             Scheduler scheduler = schedulerFactory.getScheduler();
-            scheduler.start();
+//            scheduler.start();
             Trigger.TriggerState state = scheduler.getTriggerState(TriggerKey.triggerKey("myCronTrigger", "group1"));
             scheduler.pauseTrigger(TriggerKey.triggerKey("myCronTrigger", "group1"));
 //            scheduler.unscheduleJob(TriggerKey.triggerKey("myCronTrigger", "group1"));  // 这一行使Job和Trigger都没了
