@@ -33,6 +33,9 @@ import static org.quartz.TriggerBuilder.newTrigger;
 @Service
 public class QuartzDemo1 implements ApplicationRunner {
     private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+    /*
+    * 使用StdSchedulerFactory获取的scheduer与@Resource注入的Scheduler是不同的！必须统一使用。为什么？待查资料
+    * */
 
     @Resource
     CronJob cronJob;
@@ -97,7 +100,7 @@ public class QuartzDemo1 implements ApplicationRunner {
             Scheduler scheduler = schedulerFactory.getScheduler();
 //            scheduler.start();
             Trigger.TriggerState state = scheduler.getTriggerState(TriggerKey.triggerKey("myCronTrigger", "group1"));
-            scheduler.pauseTrigger(TriggerKey.triggerKey("myCronTrigger", "group1"));
+//            scheduler.pauseTrigger(TriggerKey.triggerKey("myCronTrigger", "group1"));
 //            scheduler.unscheduleJob(TriggerKey.triggerKey("myCronTrigger", "group1"));  // 这一行使Job和Trigger都没了
             log.info("trigger state: {} || job exists: {}", state.toString(),
                         scheduler.checkExists(JobKey.jobKey("myCronJob", "group1")));
