@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.lang.model.element.TypeElement;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -47,7 +48,14 @@ public class TemplateMgrImpl implements TemplateMgr {
                 LinkedHashMap<String, LinkedHashMap<String, Object>> linkedHashMap = (LinkedHashMap)data;
                 services = linkedHashMap.get("services");
             }
-            services.get("athena-homework");
+            LinkedHashMap athenaHomework = (LinkedHashMap) services.get("athena-homework");
+            ArrayList volumes = (ArrayList)athenaHomework.get("volumes");
+            volumes.add("xxx:xxxx");
+            athenaHomework.replace("volumes", volumes);
+            log.info(athenaHomework.toString());
+            services.replace("athena-homework",athenaHomework);
+            yaml.dump(services, new FileWriter("src/main/resources/DeployTemplate/docker-compose-test.yml"));
+
 
 //            AthenaComposeServiceDTO o = yaml.loadAs(new FileInputStream(new File(targetFile)), AthenaComposeServiceDTO.class);
 //            log.info(o.toString());
