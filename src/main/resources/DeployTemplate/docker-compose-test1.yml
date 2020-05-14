@@ -1,0 +1,11 @@
+version: '3'
+services:
+  athena-eureka:
+    image: athena-eureka:1.0
+    restart: always
+    volumes: ['/var/log/athena:/var/log/athena', '/opt/doc/athena/xx:/opt/doc/athena/xx']
+  athena-homework:
+    image: athena-homework:1.0
+    restart: always
+    volumes: ['/var/log/athena:/var/log/athena', '/opt/doc/athena/xx:/opt/doc/athena/xx',
+      'xxx:xxxx']
