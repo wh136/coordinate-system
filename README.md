@@ -44,4 +44,12 @@ https://blog.csdn.net/CREATE_17/article/details/89076131
 mvn clean package -Dmaven.test.skip=true  
 
 
+# java国际化
+https://blog.csdn.net/zhoudaxia/article/details/37536195
+<资源名>_<语言代码>_<国家/地区代码>.properties
+resource_zh_CN.properties包含中文字符并且以UTF-8进行编码，假设将该资源文件放到d:\目录下，通过下面的命令就可以将其转换为Unicode代码的形式：
+D:\>native2ascii -encoding utf-8 d:\resource_zh_CN.properties
+D:\resource_zh_CN_1.properties
+
+
 
