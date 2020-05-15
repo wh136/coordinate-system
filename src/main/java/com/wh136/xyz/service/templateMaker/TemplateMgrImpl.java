@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.lang.model.element.TypeElement;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class TemplateMgrImpl implements TemplateMgr {
 //        Yaml yaml = new Yaml(constructor);
         Yaml yaml = new Yaml();
         LinkedHashMap services = new LinkedHashMap();
+        LinkedHashMap<String, LinkedHashMap<String, Object>> linkedHashMap =null;
         try {
             for(Object data: yaml.loadAll(new FileReader(targetFile))) {
 //                AthenaComposeServiceDTO athenaComposeServiceDTO = (AthenaComposeServiceDTO) data;
@@ -44,10 +46,18 @@ public class TemplateMgrImpl implements TemplateMgr {
 //                Map<String, AthenaServiceDTO> athenaServiceDTO = athenaComposeServiceDTO.getServices();
 //                AthenaServiceDTO service = athenaServiceDTO.get("athena-eureka");
 //                System.out.println("image Name:" + service.getImage());
-                LinkedHashMap<String, LinkedHashMap<String, Object>> linkedHashMap = (LinkedHashMap)data;
+                linkedHashMap = (LinkedHashMap)data;
                 services = linkedHashMap.get("services");
             }
-            services.get("athena-homework");
+            LinkedHashMap athenaHomework = (LinkedHashMap) services.get("athena-homework");
+            ArrayList volumes = (ArrayList)athenaHomework.get("volumes");
+            volumes.add("xxx:xxxx");
+            athenaHomework.replace("volumes", volumes);
+            log.info(athenaHomework.toString());
+            services.replace("athena-homework",athenaHomework);
+            linkedHashMap.replace("services", services);
+            yaml.dump(linkedHashMap, new FileWriter("src/main/resources/DeployTemplate/docker-compose-test1.yml"));
+
 
 //            AthenaComposeServiceDTO o = yaml.loadAs(new FileInputStream(new File(targetFile)), AthenaComposeServiceDTO.class);
 //            log.info(o.toString());
