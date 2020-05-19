@@ -92,3 +92,12 @@ settings-->Build Execution Deployment --> Compiler
 # 与前端调试，使用本机电脑服务，可以让前端同事用fiddler设置代理，在局域网内开发。
 
 
+# websocket
+https://www.cnblogs.com/interdrp/p/10260794.html
+
+使用浏览器访http://127.0.0.1/ws就可以测试websocket方式广播。
+
+在有socket连接的情况下，访问http://127.0.0.1/http，并使用post方式请求，就可以在ws页面看到发送的数据了。
+# 前端配置
+https://blog.csdn.net/weixin_42456466/article/details/80688681
+
