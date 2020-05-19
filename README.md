@@ -51,6 +51,10 @@ resource_zh_CN.properties包含中文字符并且以UTF-8进行编码，假设�
 D:\>native2ascii -encoding utf-8 d:\resource_zh_CN.properties
 D:\resource_zh_CN_1.properties
 
+另一种方法
+1. settings-->Encoding 都设置为utf-8
+并勾选 Properties Files encoding 为utf-8
+右键在所需要产生国际化文件的目录下new->Resource bundle 选择zh_CN和local(已经设置utf-8)输入LocalStrings
 
 # 代码模板
 https://www.programcreek.com/
@@ -85,6 +89,6 @@ settings-->Build Execution Deployment --> Compiler
 (2)修改配置文件 应用会重启
 (3)修改静态文件（html、css等），应用不会重启，但是会调用livereload，浏览器会自动刷新，显示最新的修改内容。
 
-# 与前端调试，使用本机电脑服务，可以让前端同时用fiddler设置代理，在局域网内开发。
+# 与前端调试，使用本机电脑服务，可以让前端同事用fiddler设置代理，在局域网内开发。
 
 
