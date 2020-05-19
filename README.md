@@ -56,3 +56,14 @@ D:\resource_zh_CN_1.properties
 https://www.programcreek.com/
 
 
+# java并发 java.util.concurrent
+
+1. 任务类 实现Runnable接口
+
+2. 线程类 构造Thread类 （将任务对象提交给Thread构造器，生成线程对象。并调用线程对象的start方法为该线程执行初始化操作，然后自动调用run方法在线程中启动该任务。）
+
+3. 执行器 Executor,用于管理Thread对象，简化并发编程。
+   用于代替显式的创建线程对象--> new Thread(new LiftOff())
+   
+   newCachedThreadPool 缓存式线程池
+   
