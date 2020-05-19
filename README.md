@@ -73,4 +73,18 @@ docker pull redis
 docker run -itd -p 6379:6379 --name=redis redis:latest
 docker exec -it redis-test /bin/bash
 
+# 热部署
+https://www.cnblogs.com/chenkeyu/p/10296588.html
+Idea设置
+settings-->Build Execution Deployment --> Compiler
+勾选 Build project automatically
+下载livereload插件，将其安装到chrome扩展程序中，并选中允许访问文件网址。
+
+7.测试
+(1)修改类 应用会重启
+(2)修改配置文件 应用会重启
+(3)修改静态文件（html、css等），应用不会重启，但是会调用livereload，浏览器会自动刷新，显示最新的修改内容。
+
+# 与前端调试，使用本机电脑服务，可以让前端同时用fiddler设置代理，在局域网内开发。
+
 
