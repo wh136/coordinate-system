@@ -66,4 +66,11 @@ https://www.programcreek.com/
    用于代替显式的创建线程对象--> new Thread(new LiftOff())
    
    newCachedThreadPool 缓存式线程池
-   
+
+# redis
+建议在windows10安装docker然后部署redis
+docker pull redis
+docker run -itd -p 6379:6379 --name=redis redis:latest
+docker exec -it redis-test /bin/bash
+
+
