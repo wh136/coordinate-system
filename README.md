@@ -101,3 +101,5 @@ https://www.cnblogs.com/interdrp/p/10260794.html
 # 前端配置
 https://blog.csdn.net/weixin_42456466/article/details/80688681
 
+# 部署方式
+https://blog.csdn.net/yaoyaowudi123/article/details/84974954
