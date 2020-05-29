@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="300 seconds">
+    <appender>
+        <file></file>
+        <encoder>
+            <pattern>
+
+            </pattern>
+            <charset></charset>
+        </encoder>
+        <rollingPolicy>
+            <fileNamePattern></fileNamePattern>
+            <MaxFileSize></MaxFileSize>
+            <totalSizeCap></totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender>
+        <encoder>
+            <pattern></pattern>
+            <charset></charset>
+        </encoder>
+    </appender>
+    <root>
+        <appender-ref />
+        <appender-ref />
+    </root>
+</configuration>
