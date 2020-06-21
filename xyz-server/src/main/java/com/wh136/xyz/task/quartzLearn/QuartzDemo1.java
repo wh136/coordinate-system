@@ -90,7 +90,7 @@ public class QuartzDemo1 implements ApplicationRunner {
                     .withSchedule(CronScheduleBuilder.cronSchedule(executeTime))
                     .build();
             // Tell quartz to schedule the job using our trigger
-            scheduler.scheduleJob(jobDetail,trigger);
+            scheduler.scheduleJob(jobDetail,trigger);   // 如果不调度
         } catch (Exception e) {
             log.info("error", e);
         }
