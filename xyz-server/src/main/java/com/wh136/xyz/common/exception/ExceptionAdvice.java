@@ -1,4 +1,4 @@
-package com.wh136.xyz.common.exeception;
+package com.wh136.xyz.common.exception;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
