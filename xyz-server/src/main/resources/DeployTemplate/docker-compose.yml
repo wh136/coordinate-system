@@ -6,9 +6,22 @@ services:
     volumes:
       - /var/log/athena:/var/log/athena
       - /opt/doc/athena/xx:/opt/doc/athena/xx
+
   athena-homework:
     image: "athena-homework:1.0"
     restart: always
     volumes:
       - /var/log/athena:/var/log/athena
       - /opt/doc/athena/xx:/opt/doc/athena/xx
+
+    mysql:
+      image: mysql:5.7.22
+      restart: always
+      command: --default-authentication-plugin=mysql_native_password #解决外部无法访问
+      ports:
+        - 3306:3306
+      environment:
+        MYSQL_ROOT_PASSWORD: "1q2w3e"
+        # MYSQL_DATABASE: KYLIN
+      volumes:
+        - ./mysql:/var/lib/mysql

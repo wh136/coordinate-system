@@ -40,6 +40,16 @@ public class XyzExecutors {
     /** 处理RabbitMQ消息的小城池*/
     private static ExecutorService rabbitMQService = null;
 
+    // 公共线程池
+    private volatile ExecutorService publicService = null;
+    /** 任务丢弃式线程池*/
+    private volatile ExecutorService discardService = null;
+    /**任务丢弃式线程池*/
+    private volatile ExecutorService noDiscardService = null;
+    /**任务拒绝式线程池*/
+    private volatile ExecutorService rejectService = null;
+    /***/
+
     static {
         commonService = new ThreadPoolExecutor(THREAD_CORE,
                 THREAD_MAX, THREAD_IDLE, TimeUnit.SECONDS,
@@ -81,4 +91,63 @@ public class XyzExecutors {
             log.info("shutdown executorservice", e);
         }
     }
+
+    public ExecutorService getPublicService() {
+        if (null == this.publicService) {
+            synchronized (this) {
+                if (null == this.publicService) {
+                    publicService = new ThreadPoolExecutor(24, 512, THREAD_IDLE, TimeUnit.SECONDS,
+                            new LinkedBlockingQueue<>(THREAD_CAPACITY),
+                            new DaemonThreadFactory("publicService"),
+                            new ThreadPoolExecutor.DiscardPolicy());
+                }
+            }
+        }
+        return publicService;
+    }
+
+    public ExecutorService getDiscardService() {
+        if (null == this.discardService) {
+            synchronized (this) {
+                if (null == this.discardService) {
+                    discardService = new ThreadPoolExecutor(1, 2, THREAD_IDLE, TimeUnit.SECONDS,
+                            new LinkedBlockingQueue<>(2),
+                            new DaemonThreadFactory("disCardService"),
+                            new XyzDiscardPolicy());
+                }
+            }
+        }
+        return discardService;
+    }
+
+    public ExecutorService getNoDiscardService() {
+        if (null == this.publicService) {
+            synchronized (this) {
+                if (null == this.publicService) {
+                    publicService = new ThreadPoolExecutor(1, 2, THREAD_IDLE, TimeUnit.SECONDS,
+                            new LinkedBlockingQueue<>(10),
+                            new DaemonThreadFactory("None--disCardService"),
+                            new XyzDiscardPolicy());
+                }
+            }
+        }
+        return publicService;
+    }
+
+    public ExecutorService getRejectService() {
+        if (null == this.rejectService) {
+            synchronized (this) {
+                if (null == this.rejectService) {
+                    rejectService = new ThreadPoolExecutor(1, 2, THREAD_IDLE, TimeUnit.SECONDS,
+                            new LinkedBlockingQueue<>(2),
+                            new DaemonThreadFactory("None--disCardService"),
+                            new RejectExecutionHandlerImpl());
+                }
+            }
+        }
+        return rejectService;
+    }
+
+
+
 }

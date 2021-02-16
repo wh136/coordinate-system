@@ -1,7 +1,8 @@
 package com.wh136.xyz.common.exception;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.naming.StringManager;
-import org.parboiled.common.StringUtils;
+
 
 /**
  * 应用类异常的业务逻辑封装类，所有底层异常均封装为此异常
