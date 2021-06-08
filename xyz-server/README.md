@@ -103,3 +103,11 @@ https://blog.csdn.net/weixin_42456466/article/details/80688681
 
 # 部署方式
 https://blog.csdn.net/yaoyaowudi123/article/details/84974954
+
+# postman
+
+# java调用python进行服务器监控
+https://www.cnblogs.com/ppap/p/11405058.html
+读取/proc/net/dev获取网卡流量信息
+详见resource/utils/python27
+
