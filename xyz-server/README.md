@@ -103,3 +103,18 @@ https://blog.csdn.net/weixin_42456466/article/details/80688681
 
 # 部署方式
 https://blog.csdn.net/yaoyaowudi123/article/details/84974954
+
+
+
+# mybatis generator
+
+https://mybatis.org/generator/running/runningWithMaven.html
+
+以管理员身份运行idea，一定要以管理员身份运行
+mvn mybatis-generator:generate
+
+https://blog.csdn.net/TimEcho/article/details/106033352
+
+https://blog.csdn.net/niunai112/article/details/80233644
+
+

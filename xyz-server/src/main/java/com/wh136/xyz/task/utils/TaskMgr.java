@@ -7,4 +7,12 @@ import java.util.List;
 public interface TaskMgr {
 
     List<JobDetailDTO> printAllTaskInfo();
+
+    void nonPublicCallTransaction();
+
+    void protectTransaction();
+
+    int testReturn();
+
+
 }

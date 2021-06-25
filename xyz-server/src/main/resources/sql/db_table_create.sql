@@ -1,7 +1,21 @@
 create database dc;
 use dc;
-create table book(
-     book_id INT not null ,
-     book_name varchar(50) not null,
-     primary key (book_id)
+CREATE TABLE IF NOT EXISTS TBL_BOOK(
+     ID BIGINT NOT NULL AUTO_INCREMENT,
+     BOOK_NAME varchar(50) NOT NULL ,
+     IS_DELETE boolean NOT NULL DEFAULT FALSE,
+     primary key (ID)
 );
+
+-- 参数表
+CREATE TABLE IF NOT EXISTS TBL_PARAMETER (
+  ID BIGINT NOT NULL AUTO_INCREMENT,
+  TYPE VARCHAR(256) NOT NULL COMMENT '类型',
+  NAME VARCHAR(256) NOT NULL COMMENT '名称',
+  VALUE VARCHAR(512) COMMENT '值',
+  PRIMARY KEY (ID)
+)COMMENT='系统参数设置表'
+
+
+
+

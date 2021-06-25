@@ -1,13 +1,15 @@
 package com.wh136.xyz.task.utils;
 
+import com.wh136.xyz.dao.BookRepository;
 import com.wh136.xyz.dto.JobDetailDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,5 +60,37 @@ public class TaskMgrImpl implements TaskMgr {
             log.info("[printAllTaskInfo]",e);
             return new ArrayList<>();
         }
+    }
+
+
+    @Autowired
+    BookRepository bookRepository;
+
+
+    @Autowired
+    TaskMgrImpl taskMgr;
+
+    @Override
+    public void nonPublicCallTransaction() {
+        taskMgr.protectTransaction();
+    }
+
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public void protectTransaction() {
+        bookRepository.setbookname("book1");
+        int error = 1 / 0;
+    }
+
+    @Override
+    public int testReturn() {
+        try {
+            int a = 1 / 0;
+            return 2;
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+        }
+        return 1;
     }
 }

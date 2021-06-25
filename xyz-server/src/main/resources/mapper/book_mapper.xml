@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wh136.xyz.mapper.BookMapper">
+
+    <resultMap id="slbSecurityPolicyCleanResultMap" type="com.wh136.xyz.mapper.po.CleanUserAclPolicyPO">
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="acl_policy_id" jdbcType="VARCHAR" property="aclPolicyId"/>
+    </resultMap>
+
+    <insert id="insertBook" parameterType="com.wh136.xyz.mapper.po.BookPo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into TBL_BOOK(BOOK_NAME,IS_DELETE)
+        values (#{bookName}, #{isDelete})
+    </insert>
+
+    <update id="batchDelSGByIds" >
+        update tbl_security_group set update_at = current_timestamp(),is_deleted = 1 where 1 = 1
+        <if test="reqDtos!=null and reqDtos.size()>0">
+            and instance_id in
+            <foreach collection="reqDtos" item="item" index="no" open="("
+                     separator="," close=")">
+                #{item.instanceId}
+            </foreach>
+            and tenant_id in
+            <foreach collection="reqDtos" item="item" index="no" open="("
+                     separator="," close=")">
+                #{item.tenantId}
+            </foreach>
+        </if>
+    </update>
+
+
+    <select id="queryByUserId" resultMap="slbSecurityPolicyCleanResultMap">
+        select * from tbl_lbaas_user_acl_policy where is_deleted = 0 and
+    </select>
+
+    <update id="deleteByUserIdAndPolicyIds">
+        update tbl_lbaas_l7_policy set is_deleted = 1 where user_id = #{userId} and id in
+        <foreach collection="ids" item = "id" index="no" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+</mapper>
