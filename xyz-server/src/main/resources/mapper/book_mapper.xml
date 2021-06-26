@@ -8,6 +8,11 @@
         <result column="acl_policy_id" jdbcType="VARCHAR" property="aclPolicyId"/>
     </resultMap>
 
+    <resultMap id="VpnClientCleanResultMap" type="com.wh136.xyz.mapper.po.VpnClientClean">
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="client_endpoint_instance_id" property="instanceId" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="insertBook" parameterType="com.wh136.xyz.mapper.po.BookPo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into TBL_BOOK(BOOK_NAME,IS_DELETE)
         values (#{bookName}, #{isDelete})
@@ -31,13 +36,25 @@
 
 
     <select id="queryByUserId" resultMap="slbSecurityPolicyCleanResultMap">
-        select * from tbl_lbaas_user_acl_policy where is_deleted = 0 and
+        select * from tbl_lbaas_user_acl_policy
+        where is_deleted = 0 and user_id = #{userId}
     </select>
 
     <update id="deleteByUserIdAndPolicyIds">
-        update tbl_lbaas_l7_policy set is_deleted = 1 where user_id = #{userId} and id in
-        <foreach collection="ids" item = "id" index="no" separator="," open="(" close=")">
-            #{id}
+        update tbl_lbaas_user_acl_policy set is_deleted = 1 where user_id = #{userId} and acl_policy_id in
+        <foreach collection="aclPolicyIds" item = "aclPolicyId" index="no" separator="," open="(" close=")">
+            #{aclPolicyId}
+        </foreach>
+    </update>
+
+    <select id="queryVpnByUserId" resultMap="VpnClientCleanResultMap">
+        select * from tbl_vpn_user_client_endpoint where is_deleted = 0 and user_id = #{userId}
+    </select>
+
+    <update id="deleteByUserIdAndInstanceIds">
+        update tbl_vpn_user_client_endpoint set is_deleted = 1 where user_id = #{userId} and client_endpoint_instance_id in
+        <foreach collection="instanceIds" item = "instanceId" index="no" separator="," open="(" close=")">
+            #{instanceId}
         </foreach>
     </update>
 

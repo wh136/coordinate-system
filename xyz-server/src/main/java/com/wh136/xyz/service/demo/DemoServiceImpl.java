@@ -7,6 +7,7 @@ import com.wh136.xyz.mapper.BookMapper;
 import com.wh136.xyz.mapper.po.BookPo;
 import com.wh136.xyz.mapper.po.CleanUserAclPolicyPO;
 import com.wh136.xyz.mapper.po.SecurityGroupDelReqDto;
+import com.wh136.xyz.mapper.po.VpnClientClean;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +56,9 @@ public class DemoServiceImpl implements DemoService {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackOn = Exception.class)
     public void deleteSlbSecurityPolicy() {
-        String userId = "";
+        String userId = "66c63797-961c-4783-8808-34464b64df96";
         List<CleanUserAclPolicyPO> cleanUserAclPolicyPOS = bookMapper.queryByUserId(userId);
         List<String> aclPolicyIds = new ArrayList<>();
         cleanUserAclPolicyPOS.forEach(cleanUserAclPolicyPO -> {
@@ -66,6 +67,29 @@ public class DemoServiceImpl implements DemoService {
         });
         bookMapper.deleteByUserIdAndPolicyIds(userId, aclPolicyIds);
         log.info("[deleteSlbSecurityPolicy] delte acl policy ids:{}", aclPolicyIds);
+    }
+
+    @Override
+    public List<CleanUserAclPolicyPO> querytbl_lbaas_user_acl_policy() {
+        String userId = "66c63797-961c-4783-8808-34464b64df96";
+        deleteSlbSecurityPolicy();
+        return bookMapper.queryByUserId(userId);
+    }
+
+    @Override
+    @org.springframework.transaction.annotation.Transactional(rollbackFor = Exception.class)
+    public List<VpnClientClean> deleteVpnClient() {
+        log.info("[deleteVpnClient]");
+        String userId = "66c63797-961c-4783-8808-34464b64df96";
+        List<VpnClientClean> vpnClientCleans = bookMapper.queryVpnByUserId(userId);
+        List<String> instanceIds = new ArrayList<>();
+        vpnClientCleans.forEach(vpnClientClean -> {
+            String instanceId = vpnClientClean.getInstanceId();
+            instanceIds.add(instanceId);
+        });
+        bookMapper.deleteByUserIdAndInstanceIds(userId, instanceIds);
+        log.info("[deleteVpnClient] delete instanceIds:{}", instanceIds);
+        return vpnClientCleans;
     }
 
 

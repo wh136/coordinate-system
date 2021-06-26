@@ -6,6 +6,8 @@ import com.wh136.xyz.common.enumConst.ResourceType;
 import com.wh136.xyz.common.response.RpcResult;
 import com.wh136.xyz.common.util.SysUtils;
 import com.wh136.xyz.mapper.po.BookPo;
+import com.wh136.xyz.mapper.po.CleanUserAclPolicyPO;
+import com.wh136.xyz.mapper.po.VpnClientClean;
 import com.wh136.xyz.service.demo.DemoService;
 import com.wh136.xyz.task.utils.TaskMgr;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +37,7 @@ public class DemoTestController {
 
     @RequestMapping(value = "/tesetretu", method = RequestMethod.GET)
     public RpcResult<String> testre() {
-        log.info("----->>{}",taskMgr.testReturn());
+        log.info("----->>{}", taskMgr.testReturn());
         return new RpcResult<>();
     }
 
@@ -51,10 +53,28 @@ public class DemoTestController {
         return new RpcResult<>();
     }
 
+    @GetMapping(value = "/querytbl_lbaas_user_acl_policy")
+    public RpcResult<CleanUserAclPolicyPO> querytbl_lbaas_user_acl_policy() {
+        List<CleanUserAclPolicyPO> cleanUserAclPolicyPOS = demoService.querytbl_lbaas_user_acl_policy();
+        RpcResult rpcResult = new RpcResult();
+        rpcResult.setData(cleanUserAclPolicyPOS);
+        return rpcResult;
+    }
+
+
+    @GetMapping(value = "/clean/vpnclient")
+    public RpcResult<VpnClientClean> clientVpnClient() {
+        List<VpnClientClean> vpnClientCleans = demoService.deleteVpnClient();
+        RpcResult rpcResult = new RpcResult();
+        rpcResult.setData(vpnClientCleans);
+        return rpcResult;
+    }
+
+
     @RequestMapping(value = "/taskDiscard", method = RequestMethod.GET)
     public RpcResult<String> taskDiscardaaa() {
         RpcResult rpcResult = new RpcResult();
-        XyzExecutors.get().getDiscardService().execute(()-> SysUtils.workTime(1000));
+        XyzExecutors.get().getDiscardService().execute(() -> SysUtils.workTime(1000));
         return rpcResult;
     }
 
@@ -64,12 +84,10 @@ public class DemoTestController {
 
         String uuid = "asdf-xcvc-eertdf";
         String uuid1 = "asdf-xcvc-eertdf";
-        System.out.println(uuid.replace("-",""));
-        System.out.println(uuid1.replaceAll("-",""));
+        System.out.println(uuid.replace("-", ""));
+        System.out.println(uuid1.replaceAll("-", ""));
 
         System.out.println(testReturn());
-
-
 
 
         String color = "blue";
