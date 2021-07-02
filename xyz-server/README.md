@@ -118,3 +118,11 @@ https://blog.csdn.net/TimEcho/article/details/106033352
 https://blog.csdn.net/niunai112/article/details/80233644
 
 
+
+# postman
+
+# java调用python进行服务器监控
+https://www.cnblogs.com/ppap/p/11405058.html
+读取/proc/net/dev获取网卡流量信息
+详见resource/utils/python27
+
